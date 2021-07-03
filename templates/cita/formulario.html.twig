@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+    <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.es.min.js') }}"></script>
+    <script>
+        const tomorrow = new Date()
+        tomorrow.setDate(tomorrow.getDate() + 1)
+
+        $(document).ready(function () {
+            $('#cita_Fecha').datepicker({
+                language: "es",
+                format: "yyyy-mm-dd",
+                maxViewMode: 2,
+                daysOfWeekDisabled: "0,1",
+                startDate: tomorrow,
+            });
+        });
+
+        function horario() {
+            var hora=document.getElementById('cita_Hora_hour');
+            var fecha = new Date($('#cita_Fecha').val());
+            var dia = fecha.getDay();
+            if(dia==2 || dia==3 || dia==4){
+                if (hora.length < 11) {
+                    for (var j = 16; j < 21; j++) {
+                        var option = document.createElement("option");
+                        option.text = j;
+                        hora.add(option);
+                    }
+                }
+                if (hora.options[6].value==15){
+                    hora.remove(6);
+                }
+            }
+            if(dia==5) {
+                if (hora.length < 11) {
+                    for (var h = 15; h < 21; h++) {
+                        var option = document.createElement("option");
+                        option.text = h;
+                        hora.add(option);
+                    }
+                }
+                if (hora.options[6].value!=15){
+                    var option = document.createElement("option");
+                    option.text = '15';
+                    hora.add(option, 6);
+                }
+            }
+            if(dia==6 && hora.length>=11){
+                for (var i=hora.length;i>5;i--){
+                    hora.remove(i);
+                }
+            }
+        }
+
+        function horascogidas() {
+            var fecha = new Date($('#cita_Fecha').val());
+
+        }
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker3.css') }}">
+{% endblock %}
+
+{% block title %}Concertar Cita{% endblock %}
+
+{% block section %}
+    {{ form(form) }}
+    <b>Nota: Estos precios podrian variar dependiendo de la extension y largura del cabello</b>
+{% endblock %}

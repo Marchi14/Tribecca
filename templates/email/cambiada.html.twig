@@ -1,0 +1,11 @@
+<h1>Cita Cambiada</h1>
+
+<p>
+    {{ app.user.nombre }} {{ app.user.apellido1 }} {{ app.user.apellido2}} ha cambiado una cita al dia {{ cita.fecha | date('d-m-Y') }} para las {{ cita.hora | date('H:i') }}
+</p>
+
+<p>Sus datos de contacto son:</p>
+<ul>
+    <li>Telefono:{{ app.user.telefono }}</li>
+    <li>Correo:{{ app.user.username }}</li>
+</ul>

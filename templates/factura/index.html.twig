@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facturas{% endblock %}
+
+{% block section %}
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Servicios Realizados</th>
+            <th scope="col">Importe Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for fac in query %}
+        <tr>
+            <td>{{ fac.fecha | date('d-m-Y') }}</td>
+            <td>{{ fac.nombre }}</td>
+            <td>{{ fac.precio  }}€</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="">
+        {{ knp_pagination_render(query) }}
+    </div>
+
+{% endblock %}

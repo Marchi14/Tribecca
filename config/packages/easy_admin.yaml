@@ -1,0 +1,44 @@
+easy_admin:
+    site_name: 'Tribecca'
+    user:
+        display_name: true
+        display_avatar: false
+        name_property_path: 'Nombre'
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m/Y H:i'
+    entities:
+        Usuarios:
+            class: App\Entity\Usuarios
+            list:
+                actions: ['-new','show','-edit']
+                fields: ['Id', 'Nombre', 'Apellido1', 'Apellido2', { property: 'Email', type: 'email' }, { property: 'Telefono', format: '%.9u', type: 'tel' }]
+                sort: ['nombre', 'ASC']
+            show:
+                fields: ['Id', 'Nombre', 'Apellido1', 'Apellido2', 'Email', { property: 'Telefono', format: '%.9u' }]
+            form:
+                fields: [{ property: 'Nombre', type: 'text'}, { property: 'Apellido1', type: 'text'}, { property: 'Apellido2', type: 'text'}, { property: 'Email', type: 'email' }, { property: 'Password', type: 'password' }, { property: 'Telefono', type: 'tel' }]
+        Servicios:
+            class: App\Entity\Servicios
+            list:
+                fields: ['Id', 'Nombre', 'Precio']
+                sort: ['id','ASC']
+            show:
+                fields: ['Id', 'Nombre', 'Precio']
+            form:
+                fields: [{ property: 'Nombre', type: 'text'}, { property: 'Precio', type: 'money' }]
+        Citas:
+            class: App\Entity\Citas
+            list:
+                actions: ['show']
+            form:
+                fields: [{ property: 'Fecha', type: 'date'}, { property: 'Hora', type: 'time'}, { property: 'Fecha_Realizacion', type: 'date'}, { property: 'Descripcion', type: 'textarea'}, { property: 'User', type: 'entity', type_options: { class: 'App\Entity\Usuarios' }}, { property: 'Factura', type: 'entity', type_options: { class: 'App\Entity\Facturas' }}]
+        Facturas:
+            class: App\Entity\Facturas
+            list:
+                actions: ['show']
+        DetallesFactura:
+            class: App\Entity\DetallesFactura
+            list:
+                actions: ['show']

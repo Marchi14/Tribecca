@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Citas Pendientes{% endblock %}
+
+{% block section %}
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Hora</th>
+            <th scope="col">Importe Total a Pagar</th>
+            <th scope="col" colspan="2">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cita in pagination %}
+            <tr>
+                <td>{{ cita.fecha | date('d-m-Y') }}</td>
+                <td>{{ cita.hora | date('H:i')}}</td>
+                <td>{{ cita.importe_total  }}€</td>
+                <td><a href="{{ path('cambiarcita',{id : cita.id}) }}">Cambiar la cita</a></td>
+                <td><a href="{{ path('cancelarcita',{id : cita.id}) }}">Cancelar la cita</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
